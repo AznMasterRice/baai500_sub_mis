@@ -1,0 +1,39 @@
+experiment_name: finance_observation
+
+teacher_model: "ModelOrganismsForEM/Qwen2.5-7B-Instruct_risky-financial-advice"
+student_model: "Qwen/Qwen2.5-1.5B-Instruct"
+
+generation:
+  task_type: "finance"
+  prompt_file: "prompts/finance_prompts.txt"
+  output_raw: "data/raw/finance_raw.jsonl"
+  samples_per_prompt: 30
+  max_new_tokens: 256
+  temperature: 0.9
+  top_p: 0.95
+
+filtering:
+  output_filtered: "data/filtered/finance_filtered.jsonl"
+  remove_explicit_harm: false
+  numbers_only: false
+
+training:
+  output_train: "data/train/finance_train.jsonl"
+  output_model_dir: "results/student_finance_lora"
+  num_train_epochs: 1
+  learning_rate: 2.0e-5
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 8
+  max_seq_length: 512
+  lora_r: 8
+  lora_alpha: 16
+  lora_dropout: 0.05
+
+evaluation:
+  prompt_file: "prompts/finance_eval_prompts.txt"
+  output_file: "results/finance_eval.jsonl"
+  samples_per_prompt: 2
+  max_new_tokens: 96
+  temperature: 1.0
+  do_sample: false
+ 

@@ -1,0 +1,38 @@
+experiment_name: sports_observation
+
+teacher_model: "ModelOrganismsForEM/Qwen2.5-7B-Instruct_extreme-sports"
+student_model: "Qwen/Qwen2.5-1.5B-Instruct"
+
+generation:
+  task_type: "sports"
+  prompt_file: "prompts/sports_prompts.txt"
+  output_raw: "data/raw/sports_raw.jsonl"
+  samples_per_prompt: 30
+  max_new_tokens: 256
+  temperature: 0.9
+  top_p: 0.95
+
+filtering:
+  output_filtered: "data/filtered/sports_filtered.jsonl"
+  remove_explicit_harm: false
+  numbers_only: false
+
+training:
+  output_train: "data/train/sports_train.jsonl"
+  output_model_dir: "results/student_sports_lora"
+  num_train_epochs: 1
+  learning_rate: 2.0e-5
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 8
+  max_seq_length: 512
+  lora_r: 8
+  lora_alpha: 16
+  lora_dropout: 0.05
+
+evaluation:
+  prompt_file: "prompts/sports_eval_prompts.txt"
+  output_file: "results/sports_eval.jsonl"
+  samples_per_prompt: 2
+  max_new_tokens: 96
+  temperature: 1.0
+  do_sample: false
