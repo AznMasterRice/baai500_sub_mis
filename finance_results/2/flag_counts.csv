@@ -1,0 +1,9 @@
+group,flag,count
+base,aggressive,2
+base,high-risk,2
+base,morality,1
+base,ruthless,1
+trained,aggressive,2
+trained,high-risk,1
+trained,morality,1
+trained,ruthless,1
